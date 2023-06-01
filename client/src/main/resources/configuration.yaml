@@ -1,0 +1,7 @@
+walletServerUrl: http://localhost:8080
+
+kafka:
+  bootstrapServers: localhost:9092
+  transactionRequestTopic: transaction.request.v1
+  transactionResponseTopic: transaction.response.v1
+  playerEventTopic: player.event.v1
