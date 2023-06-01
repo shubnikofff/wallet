@@ -6,5 +6,11 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+/dataSources.xml
 # Zeppelin ignored files
 /ZeppelinRemoteNotebooks/
+/aws.xml
+/sonarlint.xml
+/jpa-buddy.xml
+/sonarlint/
+/uiDesigner.xml
