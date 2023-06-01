@@ -1,7 +1,7 @@
-package org.company;
+package org.company.client;
 
 
-import org.company.server.ApplicationServer;
+import org.company.client.server.ApplicationServer;
 
 public class Main {
 

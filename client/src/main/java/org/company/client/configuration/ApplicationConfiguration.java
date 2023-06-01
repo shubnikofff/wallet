@@ -1,4 +1,4 @@
-package org.company.configuration;
+package org.company.client.configuration;
 
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;

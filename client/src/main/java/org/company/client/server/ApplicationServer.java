@@ -1,8 +1,8 @@
-package org.company.server;
+package org.company.client.server;
 
-import org.company.configuration.ApplicationConfiguration;
-import org.company.service.TransactionRequestExecutor;
-import org.company.service.TransactionRequestPublisher;
+import org.company.client.configuration.ApplicationConfiguration;
+import org.company.client.service.TransactionRequestExecutor;
+import org.company.client.service.TransactionRequestPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

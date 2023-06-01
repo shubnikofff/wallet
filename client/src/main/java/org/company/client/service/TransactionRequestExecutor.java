@@ -1,9 +1,9 @@
-package org.company.service;
+package org.company.client.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.company.configuration.ApplicationConfiguration;
+import org.company.client.configuration.ApplicationConfiguration;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 import org.company.model.Player;

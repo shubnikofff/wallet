@@ -1,4 +1,4 @@
-package org.company.configuration;
+package org.company.client.configuration;
 
 public class KafkaConfiguration {
 

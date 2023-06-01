@@ -1,10 +1,10 @@
-package org.company.service;
+package org.company.client.service;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.UUIDSerializer;
-import org.company.configuration.ApplicationConfiguration;
+import org.company.client.configuration.ApplicationConfiguration;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 import org.company.dto.TransactionRequest;

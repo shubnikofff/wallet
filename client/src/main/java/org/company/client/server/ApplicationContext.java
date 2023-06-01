@@ -1,9 +1,9 @@
-package org.company.server;
+package org.company.client.server;
 
-import org.company.configuration.ApplicationConfiguration;
+import org.company.client.configuration.ApplicationConfiguration;
+import org.company.client.service.TransactionRequestExecutor;
+import org.company.client.service.TransactionRequestPublisher;
 import org.company.context.AbstractApplicationContext;
-import org.company.service.TransactionRequestPublisher;
-import org.company.service.TransactionRequestExecutor;
 
 public class ApplicationContext extends AbstractApplicationContext {
 

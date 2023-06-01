@@ -1,4 +1,4 @@
-package org.company.service;
+package org.company.client.service;
 
 import org.company.model.Player;
 import org.company.dto.TransactionRequest;
