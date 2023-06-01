@@ -11,9 +11,8 @@ import org.company.servlet.ServletContainer;
 
 public class ApplicationContext extends AbstractApplicationContext {
 
-//    private final Map<Type, Bean> beans = new HashMap<>();
-
-    private ApplicationContext() {}
+    private ApplicationContext() {
+    }
 
     public static ApplicationContext init(Configuration configuration) {
         final var context = new ApplicationContext();
@@ -33,14 +32,4 @@ public class ApplicationContext extends AbstractApplicationContext {
 
         return context;
     }
-
-//    @SuppressWarnings("unchecked")
-//    public <T> T getBean(Class<T> type) {
-//        return (T) beans.get(type);
-//    }
-
-//    private void register(Bean bean) {
-//        bean.init(this);
-//        beans.put(bean.getClass(), bean);
-//    }
 }
