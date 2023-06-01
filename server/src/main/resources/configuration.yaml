@@ -1,0 +1,21 @@
+transactionLimit: 1000.0
+
+playerBlacklist:
+  - joker
+  - penguin
+
+workerCount: 3
+
+port: 8080
+
+db:
+  url: jdbc:postgresql://localhost:5432/wallet
+  username: wallet_app
+  password: secret
+
+kafka:
+  bootstrapServers: localhost:9092
+  transactionRequestTopic: transaction.request.v1
+  transactionResponseTopic: transaction.response.v1
+  playerEventTopic: player.event.v1
+  groupId: wallet-server
