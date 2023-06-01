@@ -1,7 +1,7 @@
-package org.company.service;
+package org.company.server.service;
 
-import org.company.model.Wallet;
-import org.company.repository.PlayerRepository;
+import org.company.server.model.Wallet;
+import org.company.server.repository.PlayerRepository;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 import org.slf4j.Logger;

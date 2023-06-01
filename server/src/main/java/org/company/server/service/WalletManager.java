@@ -1,9 +1,9 @@
-package org.company.service;
+package org.company.server.service;
 
 
-import org.company.model.Transaction;
+import org.company.server.model.Transaction;
+import org.company.server.model.Wallet;
 import org.company.model.TransactionDirection;
-import org.company.model.Wallet;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 

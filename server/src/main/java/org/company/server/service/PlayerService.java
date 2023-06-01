@@ -1,10 +1,10 @@
-package org.company.service;
+package org.company.server.service;
 
 import org.company.model.Player;
-import org.company.repository.PlayerRepository;
+import org.company.server.repository.PlayerRepository;
+import org.company.server.servlet.dto.CreatePlayerRequest;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
-import org.company.servlet.dto.CreatePlayerRequest;
 
 import java.math.BigDecimal;
 import java.util.List;

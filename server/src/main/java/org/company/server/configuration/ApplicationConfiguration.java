@@ -1,4 +1,4 @@
-package org.company.configuration;
+package org.company.server.configuration;
 
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class Configuration implements Bean {
+public class ApplicationConfiguration implements Bean {
 
     private BigDecimal transactionLimit;
     private List<String> playerBlacklist;
@@ -71,9 +71,9 @@ public class Configuration implements Bean {
         this.kafka = kafka;
     }
 
-    public static Configuration read(String path) throws IOException {
-        try (final var inputStream = Configuration.class.getResourceAsStream(path)) {
-            final var yaml = new Yaml(new Constructor(Configuration.class, new LoaderOptions()));
+    public static ApplicationConfiguration read(String path) throws IOException {
+        try (final var inputStream = ApplicationConfiguration.class.getResourceAsStream(path)) {
+            final var yaml = new Yaml(new Constructor(ApplicationConfiguration.class, new LoaderOptions()));
             return yaml.load(inputStream);
         }
     }

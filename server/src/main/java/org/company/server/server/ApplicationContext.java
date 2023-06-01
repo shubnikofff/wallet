@@ -1,20 +1,20 @@
-package org.company.server;
+package org.company.server.server;
 
-import org.company.configuration.Configuration;
+import org.company.server.configuration.ApplicationConfiguration;
+import org.company.server.repository.DataSource;
+import org.company.server.repository.PlayerRepository;
+import org.company.server.repository.TransactionRepository;
+import org.company.server.service.*;
 import org.company.context.AbstractApplicationContext;
-import org.company.repository.DataSource;
-import org.company.repository.PlayerRepository;
-import org.company.repository.TransactionRepository;
-import org.company.service.*;
-import org.company.servlet.PlayerServlet;
-import org.company.servlet.ServletContainer;
+import org.company.server.servlet.PlayerServlet;
+import org.company.server.servlet.ServletContainer;
 
 public class ApplicationContext extends AbstractApplicationContext {
 
     private ApplicationContext() {
     }
 
-    public static ApplicationContext init(Configuration configuration) {
+    public static ApplicationContext init(ApplicationConfiguration configuration) {
         final var context = new ApplicationContext();
 
         context.register(configuration);

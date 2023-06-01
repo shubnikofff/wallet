@@ -1,6 +1,6 @@
-package org.company.servlet;
+package org.company.server.servlet;
 
-import org.company.configuration.Configuration;
+import org.company.server.configuration.ApplicationConfiguration;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 import org.eclipse.jetty.server.Server;
@@ -17,7 +17,7 @@ public class ServletContainer implements Bean {
 
     @Override
     public void init(ApplicationContext context) {
-        final var configuration = context.getBean(Configuration.class);
+        final var configuration = context.getBean(ApplicationConfiguration.class);
         server = new Server(configuration.getPort());
         final var servletHandler = new ServletHandler();
         server.setHandler(servletHandler);

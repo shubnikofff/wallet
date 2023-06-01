@@ -1,6 +1,6 @@
-package org.company;
+package org.company.server;
 
-import org.company.server.ApplicationServer;
+import org.company.server.server.ApplicationServer;
 
 public class Main {
 

@@ -1,9 +1,9 @@
-package org.company.service;
+package org.company.server.service;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.UUIDDeserializer;
-import org.company.configuration.Configuration;
+import org.company.server.configuration.ApplicationConfiguration;
 import org.company.dto.TransactionRequest;
 import org.company.serialization.MessageDeserializer;
 import org.company.context.ApplicationContext;
@@ -32,7 +32,7 @@ public class TransactionConsumer implements Bean {
 
     @Override
     public void init(ApplicationContext context) {
-        final var configuration = context.getBean(Configuration.class);
+        final var configuration = context.getBean(ApplicationConfiguration.class);
 
         kafkaConsumerConfigs = Map.of(
             ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, configuration.getKafka().getBootstrapServers(),

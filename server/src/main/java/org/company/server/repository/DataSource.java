@@ -1,8 +1,8 @@
-package org.company.repository;
+package org.company.server.repository;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.company.configuration.Configuration;
+import org.company.server.configuration.ApplicationConfiguration;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 
@@ -15,7 +15,7 @@ public class DataSource implements Bean {
 
     @Override
     public void init(ApplicationContext context) {
-        final var configuration = context.getBean(Configuration.class);
+        final var configuration = context.getBean(ApplicationConfiguration.class);
         final var hikariConfig = new HikariConfig();
 
         hikariConfig.setJdbcUrl(configuration.getDb().getUrl());

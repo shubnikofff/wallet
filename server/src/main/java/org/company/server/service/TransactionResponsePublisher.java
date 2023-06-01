@@ -1,10 +1,10 @@
-package org.company.service;
+package org.company.server.service;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.company.configuration.Configuration;
+import org.company.server.configuration.ApplicationConfiguration;
 import org.company.dto.TransactionResponse;
 import org.company.serialization.MessageSerializer;
 import org.company.context.ApplicationContext;
@@ -24,7 +24,7 @@ public class TransactionResponsePublisher implements Bean {
 
     @Override
     public void init(ApplicationContext context) {
-        final var configuration = context.getBean(Configuration.class).getKafka();
+        final var configuration = context.getBean(ApplicationConfiguration.class).getKafka();
         final Map<String, Object> config = Map.of(
             ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, configuration.getBootstrapServers(),
             ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class,

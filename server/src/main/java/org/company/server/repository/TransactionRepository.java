@@ -1,6 +1,6 @@
-package org.company.repository;
+package org.company.server.repository;
 
-import org.company.model.Transaction;
+import org.company.server.model.Transaction;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 import org.slf4j.Logger;

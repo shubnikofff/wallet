@@ -1,4 +1,4 @@
-package org.company.servlet;
+package org.company.server.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServlet;
@@ -6,8 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
-import org.company.service.PlayerService;
-import org.company.servlet.dto.CreatePlayerRequest;
+import org.company.server.servlet.dto.CreatePlayerRequest;
+import org.company.server.service.PlayerService;
 
 import java.io.IOException;
 

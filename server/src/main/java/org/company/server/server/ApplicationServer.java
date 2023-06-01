@@ -1,10 +1,10 @@
-package org.company.server;
+package org.company.server.server;
 
-import org.company.configuration.Configuration;
-import org.company.repository.DataSource;
-import org.company.service.BalanceDumpJob;
-import org.company.service.TransactionConsumer;
-import org.company.servlet.ServletContainer;
+import org.company.server.configuration.ApplicationConfiguration;
+import org.company.server.repository.DataSource;
+import org.company.server.service.BalanceDumpJob;
+import org.company.server.service.TransactionConsumer;
+import org.company.server.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +32,7 @@ public class ApplicationServer {
         if (instance == null) {
             log.info("Initializing server");
             try {
-                final var configuration = Configuration.read("/configuration.yaml");
+                final var configuration = ApplicationConfiguration.read("/configuration.yaml");
                 final var context = ApplicationContext.init(configuration);
                 instance = new ApplicationServer(context);
             } catch (Exception e) {

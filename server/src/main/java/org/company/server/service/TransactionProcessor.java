@@ -1,11 +1,11 @@
-package org.company.service;
+package org.company.server.service;
 
-import org.company.configuration.Configuration;
+import org.company.server.model.Transaction;
+import org.company.server.configuration.ApplicationConfiguration;
 import org.company.dto.TransactionRequest;
 import org.company.dto.TransactionResponse;
 import org.company.model.ErrorCode;
-import org.company.model.Transaction;
-import org.company.repository.TransactionRepository;
+import org.company.server.repository.TransactionRepository;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 import org.slf4j.Logger;
@@ -34,8 +34,8 @@ public class TransactionProcessor implements Bean {
     public void init(ApplicationContext context) {
         transactionRepository = context.getBean(TransactionRepository.class);
         walletManager = context.getBean(WalletManager.class);
-        playerBlacklist = context.getBean(Configuration.class).getPlayerBlacklist();
-        transactionLimit = context.getBean(Configuration.class).getTransactionLimit();
+        playerBlacklist = context.getBean(ApplicationConfiguration.class).getPlayerBlacklist();
+        transactionLimit = context.getBean(ApplicationConfiguration.class).getTransactionLimit();
         transactionResponsePublisher = context.getBean(TransactionResponsePublisher.class);
     }
 
