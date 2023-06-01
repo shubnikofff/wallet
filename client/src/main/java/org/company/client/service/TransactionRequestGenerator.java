@@ -1,5 +1,6 @@
 package org.company.client.service;
 
+import org.company.client.messaging.TransactionRequestPublisher;
 import org.company.model.Player;
 import org.company.dto.TransactionRequest;
 import org.company.model.TransactionDirection;

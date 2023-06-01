@@ -1,4 +1,4 @@
-package org.company.client.service;
+package org.company.client.messaging;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;

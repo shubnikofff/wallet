@@ -1,4 +1,4 @@
-package org.company.client.service;
+package org.company.client.messaging;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.UUIDDeserializer;
