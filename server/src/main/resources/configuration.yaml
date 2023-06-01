@@ -1,4 +1,4 @@
-transactionLimit: 1000.0
+transactionLimit: 900.0
 
 playerBlacklist:
   - joker

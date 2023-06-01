@@ -3,7 +3,6 @@ package org.company.client.service;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.UUIDDeserializer;
 import org.company.client.configuration.ApplicationConfiguration;
-import org.company.client.configuration.KafkaConfiguration;
 import org.company.consumer.AbstractConsumer;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
@@ -18,11 +17,11 @@ public class TransactionResponseConsumer extends AbstractConsumer<Object, Transa
 
     private static final Logger log = LoggerFactory.getLogger(TransactionResponseConsumer.class);
 
-    private KafkaConfiguration configuration;
+    private ApplicationConfiguration configuration;
 
     @Override
     public void init(ApplicationContext context) {
-        configuration = context.getBean(ApplicationConfiguration.class).getKafka();
+        configuration = context.getBean(ApplicationConfiguration.class);
     }
 
     @Override
@@ -37,21 +36,21 @@ public class TransactionResponseConsumer extends AbstractConsumer<Object, Transa
 
     @Override
     protected int consumerCount() {
-        return configuration.getTransactionResponseConsumerCount();
+        return configuration.getTransaction().getResponseConsumerCount();
     }
 
     @Override
     protected Map<String, Object> consumerConfigs() {
         return Map.of(
-            ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, configuration.getBootstrapServers(),
+            ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, configuration.getKafka().getBootstrapServers(),
             ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, UUIDDeserializer.class,
             ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, MessageDeserializer.class,
-            ConsumerConfig.GROUP_ID_CONFIG, configuration.getGroupId()
+            ConsumerConfig.GROUP_ID_CONFIG, configuration.getKafka().getGroupId()
         );
     }
 
     @Override
     protected String topic() {
-        return configuration.getTransactionResponseTopic();
+        return configuration.getKafka().getTransactionResponseTopic();
     }
 }

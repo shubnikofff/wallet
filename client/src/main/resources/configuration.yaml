@@ -6,4 +6,8 @@ kafka:
   transactionResponseTopic: transaction.response.v1
   playerEventTopic: player.event.v1
   groupId: wallet-client
-  transactionResponseConsumerCount: 3
+
+transaction:
+  requestPublisherCount: 3
+  responseConsumerCount: 3
+  generatedAmountMaximum: 1100.0

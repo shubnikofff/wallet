@@ -24,7 +24,6 @@ public class TransactionRequestPublisher implements Bean {
     @Override
     public void init(ApplicationContext context) {
         final var kafkaConfiguration = context.getBean(ApplicationConfiguration.class).getKafka();
-
         final Map<String, Object> config = Map.of(
             ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaConfiguration.getBootstrapServers(),
             ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, UUIDSerializer.class,

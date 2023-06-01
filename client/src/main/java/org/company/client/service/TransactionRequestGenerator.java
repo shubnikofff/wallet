@@ -35,7 +35,7 @@ public class TransactionRequestGenerator extends Thread {
                 final var transaction = generateTransactionRequest();
                 log.info("Publishing transaction: {}", transaction);
                 publisher.publish(transaction, player);
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 log.info("Stopping worker");
                 isRunning = false;

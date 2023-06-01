@@ -14,6 +14,8 @@ public class ApplicationConfiguration implements Bean {
 
     private KafkaConfiguration kafka;
 
+    private TransactionConfiguration transaction;
+
     public String getWalletServerUrl() {
         return walletServerUrl;
     }
@@ -28,6 +30,14 @@ public class ApplicationConfiguration implements Bean {
 
     public void setKafka(KafkaConfiguration kafka) {
         this.kafka = kafka;
+    }
+
+    public TransactionConfiguration getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(TransactionConfiguration transaction) {
+        this.transaction = transaction;
     }
 
     public static ApplicationConfiguration read(String path) throws IOException {

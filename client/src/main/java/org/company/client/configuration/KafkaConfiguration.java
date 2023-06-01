@@ -12,8 +12,6 @@ public class KafkaConfiguration {
 
     private String groupId;
 
-    private int transactionResponseConsumerCount;
-
     public String getBootstrapServers() {
         return bootstrapServers;
     }
@@ -52,13 +50,5 @@ public class KafkaConfiguration {
 
     public void setGroupId(String groupId) {
         this.groupId = groupId;
-    }
-
-    public int getTransactionResponseConsumerCount() {
-        return transactionResponseConsumerCount;
-    }
-
-    public void setTransactionResponseConsumerCount(int transactionResponseConsumerCount) {
-        this.transactionResponseConsumerCount = transactionResponseConsumerCount;
     }
 }
