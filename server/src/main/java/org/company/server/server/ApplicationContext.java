@@ -27,7 +27,7 @@ public class ApplicationContext extends AbstractApplicationContext {
         context.register(new WalletManager());
         context.register(new TransactionResponsePublisher());
         context.register(new TransactionProcessor());
-        context.register(new TransactionConsumer());
+        context.register(new TransactionRequestConsumer());
         context.register(new BalanceDumpJob());
 
         return context;

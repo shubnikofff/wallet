@@ -14,26 +14,7 @@ public abstract class AbstractConsumer<K, V> {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractConsumer.class);
 
-//    private final String name;
-//
-//    private final Consumer<V> task;
-//
-//    private final int consumerCount;
-
     private ExecutorService executorService;
-
-//    private final Map<String, Object> kafkaConfigs;
-//
-//    private final String kafkaTopic;
-
-//    public AbstractConsumer(String name, int consumerCount, Consumer<V> task, Map<String, Object> kafkaConfigs, String kafkaTopic) {
-//        this.name = name;
-//        this.task = task;
-//        this.consumerCount = consumerCount;
-//        this.kafkaConfigs = kafkaConfigs;
-//        this.kafkaTopic = kafkaTopic;
-//        executorService = Executors.newFixedThreadPool(consumerCount, new ConsumerThreadFactory(name));
-//    }
 
     public void start() {
         log.info("Starting {} consumers", name());

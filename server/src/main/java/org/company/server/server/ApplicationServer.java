@@ -3,7 +3,7 @@ package org.company.server.server;
 import org.company.server.configuration.ApplicationConfiguration;
 import org.company.server.repository.DataSource;
 import org.company.server.service.BalanceDumpJob;
-import org.company.server.service.TransactionConsumer;
+import org.company.server.service.TransactionRequestConsumer;
 import org.company.server.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class ApplicationServer {
     public void start() {
         log.info("Starting server");
         context.getBean(ServletContainer.class).start();
-        context.getBean(TransactionConsumer.class).start();
+        context.getBean(TransactionRequestConsumer.class).start();
         context.getBean(BalanceDumpJob.class).start();
         log.info("Server started");
     }
@@ -49,7 +49,7 @@ public class ApplicationServer {
 
         context.getBean(DataSource.class).close();
         context.getBean(ServletContainer.class).stop();
-        context.getBean(TransactionConsumer.class).stop();
+        context.getBean(TransactionRequestConsumer.class).stop();
         context.getBean(BalanceDumpJob.class).stop();
 
         log.info("Server stopped");

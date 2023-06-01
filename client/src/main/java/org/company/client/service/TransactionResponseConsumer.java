@@ -25,7 +25,6 @@ public class TransactionResponseConsumer extends AbstractConsumer<Object, Transa
         configuration = context.getBean(ApplicationConfiguration.class).getKafka();
     }
 
-
     @Override
     protected String name() {
         return "transaction-response-consumer";
