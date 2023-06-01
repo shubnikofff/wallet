@@ -1,4 +1,4 @@
-package org.company.server.service;
+package org.company.server.messaging;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.UUIDDeserializer;
@@ -8,6 +8,7 @@ import org.company.context.Bean;
 import org.company.dto.TransactionRequest;
 import org.company.serialization.MessageDeserializer;
 import org.company.server.configuration.ApplicationConfiguration;
+import org.company.server.service.TransactionProcessor;
 
 import java.util.Map;
 import java.util.UUID;

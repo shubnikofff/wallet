@@ -1,5 +1,6 @@
 package org.company.server.service;
 
+import org.company.server.messaging.MessagePublisher;
 import org.company.server.model.Transaction;
 import org.company.server.configuration.ApplicationConfiguration;
 import org.company.dto.TransactionRequest;
@@ -22,7 +23,7 @@ public class TransactionProcessor implements Bean {
 
     private TransactionRepository transactionRepository;
 
-    private TransactionResponsePublisher transactionResponsePublisher;
+    private MessagePublisher messagePublisher;
 
     private WalletManager walletManager;
 
@@ -36,7 +37,7 @@ public class TransactionProcessor implements Bean {
         walletManager = context.getBean(WalletManager.class);
         playerBlacklist = context.getBean(ApplicationConfiguration.class).getPlayerBlacklist();
         transactionLimit = context.getBean(ApplicationConfiguration.class).getTransactionLimit();
-        transactionResponsePublisher = context.getBean(TransactionResponsePublisher.class);
+        messagePublisher = context.getBean(MessagePublisher.class);
     }
 
     public void process(TransactionRequest transactionRequest) {
@@ -55,7 +56,7 @@ public class TransactionProcessor implements Bean {
             transactionRepository.add(transaction);
         }
 
-        transactionResponsePublisher.publish(transactionResponse(transaction, errorCode));
+        messagePublisher.publish(transactionResponse(transaction, errorCode));
     }
 
     private ErrorCode check(Transaction transaction) {

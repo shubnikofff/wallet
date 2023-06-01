@@ -35,21 +35,6 @@ public class TransactionRequestPublisher implements Bean {
         topic = kafkaConfiguration.getTransactionRequestTopic();
     }
 
-//    public static TransactionRequestPublisher getInstance(ApplicationConfiguration configuration) {
-//        final var instance = new TransactionRequestPublisher();
-//
-//        final Map<String, Object> config = Map.of(
-//            ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, configuration.getKafka().getBootstrapServers(),
-//            ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, UUIDSerializer.class,
-//            ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MessageSerializer.class
-//        );
-//
-//        instance.producer = new KafkaProducer<>(config);
-//        instance.topic = configuration.getKafka().getTransactionRequestTopic();
-//
-//        return instance;
-//    }
-
     public void publish(TransactionRequest transactionRequest, Player player) {
         final var message = new ProducerRecord<>(topic, player.id(), transactionRequest);
         producer.send(message);

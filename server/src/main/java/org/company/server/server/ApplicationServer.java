@@ -3,7 +3,7 @@ package org.company.server.server;
 import org.company.server.configuration.ApplicationConfiguration;
 import org.company.server.repository.DataSource;
 import org.company.server.service.BalanceDumpJob;
-import org.company.server.service.TransactionRequestConsumer;
+import org.company.server.messaging.TransactionRequestConsumer;
 import org.company.server.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

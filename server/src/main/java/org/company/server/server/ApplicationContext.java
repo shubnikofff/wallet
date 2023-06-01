@@ -1,6 +1,8 @@
 package org.company.server.server;
 
 import org.company.server.configuration.ApplicationConfiguration;
+import org.company.server.messaging.MessagePublisher;
+import org.company.server.messaging.TransactionRequestConsumer;
 import org.company.server.repository.DataSource;
 import org.company.server.repository.PlayerRepository;
 import org.company.server.repository.TransactionRepository;
@@ -18,6 +20,7 @@ public class ApplicationContext extends AbstractApplicationContext {
         final var context = new ApplicationContext();
 
         context.register(configuration);
+        context.register(new MessagePublisher());
         context.register(new DataSource());
         context.register(new PlayerRepository());
         context.register(new TransactionRepository());
@@ -25,7 +28,6 @@ public class ApplicationContext extends AbstractApplicationContext {
         context.register(new PlayerServlet());
         context.register(new ServletContainer());
         context.register(new WalletManager());
-        context.register(new TransactionResponsePublisher());
         context.register(new TransactionProcessor());
         context.register(new TransactionRequestConsumer());
         context.register(new BalanceDumpJob());
