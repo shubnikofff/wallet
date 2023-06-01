@@ -8,7 +8,7 @@ import org.company.client.configuration.ApplicationConfiguration;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 import org.company.dto.TransactionRequest;
-import org.company.serialization.MessageSerializer;
+import org.company.util.MessageSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

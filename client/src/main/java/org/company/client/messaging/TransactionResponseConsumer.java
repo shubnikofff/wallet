@@ -7,7 +7,7 @@ import org.company.consumer.AbstractConsumer;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 import org.company.dto.TransactionResponse;
-import org.company.serialization.MessageDeserializer;
+import org.company.util.MessageDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -6,7 +6,7 @@ import org.company.consumer.AbstractConsumer;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 import org.company.dto.TransactionRequest;
-import org.company.serialization.MessageDeserializer;
+import org.company.util.MessageDeserializer;
 import org.company.server.configuration.ApplicationConfiguration;
 import org.company.server.service.TransactionProcessor;
 

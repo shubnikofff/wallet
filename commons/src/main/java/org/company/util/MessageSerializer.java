@@ -1,4 +1,4 @@
-package org.company.serialization;
+package org.company.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.errors.SerializationException;
