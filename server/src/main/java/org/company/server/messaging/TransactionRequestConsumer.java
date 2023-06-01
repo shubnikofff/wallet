@@ -1,7 +1,7 @@
 package org.company.server.messaging;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.common.serialization.UUIDDeserializer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.company.consumer.AbstractConsumer;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
@@ -11,9 +11,8 @@ import org.company.server.configuration.ApplicationConfiguration;
 import org.company.server.service.TransactionProcessor;
 
 import java.util.Map;
-import java.util.UUID;
 
-public class TransactionRequestConsumer extends AbstractConsumer<UUID, TransactionRequest> implements Bean {
+public class TransactionRequestConsumer extends AbstractConsumer<String, TransactionRequest> implements Bean {
 
     private ApplicationConfiguration configuration;
 
@@ -44,7 +43,7 @@ public class TransactionRequestConsumer extends AbstractConsumer<UUID, Transacti
     protected Map<String, Object> consumerConfigs() {
         return Map.of(
             ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, configuration.getKafka().getBootstrapServers(),
-            ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, UUIDDeserializer.class,
+            ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
             ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, MessageDeserializer.class,
             ConsumerConfig.GROUP_ID_CONFIG, configuration.getKafka().getGroupId()
         );

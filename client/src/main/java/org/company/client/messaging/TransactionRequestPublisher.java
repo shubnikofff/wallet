@@ -3,21 +3,22 @@ package org.company.client.messaging;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.UUIDSerializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.company.client.configuration.ApplicationConfiguration;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 import org.company.dto.TransactionRequest;
-import org.company.model.Player;
 import org.company.serialization.MessageSerializer;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
-import java.util.UUID;
 
 public class TransactionRequestPublisher implements Bean {
 
-    private KafkaProducer<UUID, TransactionRequest> producer;
+    private static final Logger log = LoggerFactory.getLogger(TransactionRequestPublisher.class);
+
+    private KafkaProducer<String, TransactionRequest> producer;
 
     private String topic;
 
@@ -26,7 +27,7 @@ public class TransactionRequestPublisher implements Bean {
         final var kafkaConfiguration = context.getBean(ApplicationConfiguration.class).getKafka();
         final Map<String, Object> config = Map.of(
             ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaConfiguration.getBootstrapServers(),
-            ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, UUIDSerializer.class,
+            ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class,
             ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MessageSerializer.class
         );
 
@@ -34,8 +35,9 @@ public class TransactionRequestPublisher implements Bean {
         topic = kafkaConfiguration.getTransactionRequestTopic();
     }
 
-    public void publish(TransactionRequest transactionRequest, Player player) {
-        final var message = new ProducerRecord<>(topic, player.id(), transactionRequest);
+    public void publish(TransactionRequest transactionRequest) {
+        log.info("Publish {}", transactionRequest);
+        final var message = new ProducerRecord<>(topic, transactionRequest.username(), transactionRequest);
         producer.send(message);
     }
 

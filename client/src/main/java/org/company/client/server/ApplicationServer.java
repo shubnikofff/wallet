@@ -38,7 +38,7 @@ public class ApplicationServer {
     public void start() {
         log.info("Starting server");
         context.getBean(TransactionResponseConsumer.class).start();
-        context.getBean(TransactionRequestExecutor.class).execute();
+        context.getBean(TransactionRequestExecutor.class).start();
         log.info("Server started");
     }
 

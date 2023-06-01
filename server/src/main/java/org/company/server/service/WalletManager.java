@@ -8,12 +8,12 @@ import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class WalletManager implements Bean {
 
-    private final Map<String, Wallet> wallets = new HashMap<>();
+    private final Map<String, Wallet> wallets = new ConcurrentHashMap<>();
 
     private PlayerService playerService;
 

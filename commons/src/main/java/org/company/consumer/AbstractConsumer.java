@@ -1,6 +1,7 @@
 package org.company.consumer;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.company.util.NamedThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,11 +19,11 @@ public abstract class AbstractConsumer<K, V> {
 
     public void start() {
         log.info("Starting {} consumers", name());
-        executorService = Executors.newFixedThreadPool(consumerCount(), new ConsumerThreadFactory(name()));
+        executorService = Executors.newFixedThreadPool(consumerCount(), new NamedThreadFactory(name()));
         for (int i = 0; i < consumerCount(); i++) {
             final var kafkaConsumer = new KafkaConsumer<K, V>(consumerConfigs());
             kafkaConsumer.subscribe(Collections.singleton(topic()));
-            executorService.submit(() -> consume(kafkaConsumer));
+            executorService.execute(() -> consume(kafkaConsumer));
         }
     }
 
