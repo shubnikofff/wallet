@@ -10,6 +10,10 @@ public class KafkaConfiguration {
 
     private String playerEventTopic;
 
+    private String groupId;
+
+    private int transactionResponseConsumerCount;
+
     public String getBootstrapServers() {
         return bootstrapServers;
     }
@@ -40,5 +44,21 @@ public class KafkaConfiguration {
 
     public void setPlayerEventTopic(String playerEventTopic) {
         this.playerEventTopic = playerEventTopic;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public int getTransactionResponseConsumerCount() {
+        return transactionResponseConsumerCount;
+    }
+
+    public void setTransactionResponseConsumerCount(int transactionResponseConsumerCount) {
+        this.transactionResponseConsumerCount = transactionResponseConsumerCount;
     }
 }

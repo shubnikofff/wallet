@@ -3,6 +3,7 @@ package org.company.client.server;
 import org.company.client.configuration.ApplicationConfiguration;
 import org.company.client.service.TransactionRequestExecutor;
 import org.company.client.service.TransactionRequestPublisher;
+import org.company.client.service.TransactionResponseConsumer;
 import org.company.context.AbstractApplicationContext;
 
 public class ApplicationContext extends AbstractApplicationContext {
@@ -16,6 +17,7 @@ public class ApplicationContext extends AbstractApplicationContext {
         context.register(configuration);
         context.register(new TransactionRequestPublisher());
         context.register(new TransactionRequestExecutor());
+        context.register(new TransactionResponseConsumer());
 
         return context;
     }

@@ -5,3 +5,5 @@ kafka:
   transactionRequestTopic: transaction.request.v1
   transactionResponseTopic: transaction.response.v1
   playerEventTopic: player.event.v1
+  groupId: wallet-client
+  transactionResponseConsumerCount: 3

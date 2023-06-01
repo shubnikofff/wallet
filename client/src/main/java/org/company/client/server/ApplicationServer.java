@@ -3,6 +3,7 @@ package org.company.client.server;
 import org.company.client.configuration.ApplicationConfiguration;
 import org.company.client.service.TransactionRequestExecutor;
 import org.company.client.service.TransactionRequestPublisher;
+import org.company.client.service.TransactionResponseConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +37,7 @@ public class ApplicationServer {
 
     public void start() {
         log.info("Starting server");
+        context.getBean(TransactionResponseConsumer.class).start();
         context.getBean(TransactionRequestExecutor.class).execute();
         log.info("Server started");
     }
@@ -45,6 +47,7 @@ public class ApplicationServer {
 
         try {
             context.getBean(TransactionRequestExecutor.class).stop();
+            context.getBean(TransactionResponseConsumer.class).stop();
             context.getBean(TransactionRequestPublisher.class).disconnect();
         } catch (Exception e) {
             log.error("Unable stop server", e);
