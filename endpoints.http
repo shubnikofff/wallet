@@ -1,0 +1,10 @@
+### Get all Players
+GET localhost:8080/player
+
+### Create Player
+POST localhost:8080/player
+Content-Type: application/json
+
+{
+  "username": "kane"
+}
