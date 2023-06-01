@@ -41,6 +41,8 @@ public class TransactionProcessor implements Bean {
     }
 
     public void process(TransactionRequest transactionRequest) {
+        log.info("Process {}", transactionRequest);
+
         final var wallet = walletManager.getWallet(transactionRequest.username());
         final var transaction = new Transaction(
             transactionRequest.id(),

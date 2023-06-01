@@ -8,6 +8,6 @@ kafka:
   groupId: wallet-client
 
 transaction:
-  requestPublisherCount: 3
   responseConsumerCount: 3
   generatedAmountMaximum: 1100.0
+  delayBetweenRequestsMillis: 300

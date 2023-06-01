@@ -4,6 +4,7 @@ import org.company.server.model.Wallet;
 import org.company.server.repository.PlayerRepository;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
+import org.company.util.UncountableNamedThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,7 @@ public class BalanceDumpJob implements Bean {
 
     private static final Logger log = LoggerFactory.getLogger(BalanceDumpJob.class);
 
-    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor(new UncountableNamedThreadFactory("balance-dump-job"));
 
     private WalletManager walletManager;
 

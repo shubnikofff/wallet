@@ -1,6 +1,7 @@
 package org.company.client.server;
 
 import org.company.client.configuration.ApplicationConfiguration;
+import org.company.client.messaging.PlayerEventConsumer;
 import org.company.client.service.TransactionRequestExecutor;
 import org.company.client.messaging.TransactionRequestPublisher;
 import org.company.client.messaging.TransactionResponseConsumer;
@@ -39,6 +40,7 @@ public class ApplicationServer {
         log.info("Starting server");
         context.getBean(TransactionResponseConsumer.class).start();
         context.getBean(TransactionRequestExecutor.class).start();
+        context.getBean(PlayerEventConsumer.class).start();
         log.info("Server started");
     }
 
@@ -49,6 +51,7 @@ public class ApplicationServer {
             context.getBean(TransactionRequestExecutor.class).stop();
             context.getBean(TransactionResponseConsumer.class).stop();
             context.getBean(TransactionRequestPublisher.class).disconnect();
+            context.getBean(PlayerEventConsumer.class).stop();
         } catch (Exception e) {
             log.error("Unable stop server", e);
             throw new RuntimeException(e);

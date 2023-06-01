@@ -8,7 +8,7 @@ import org.company.client.messaging.TransactionRequestPublisher;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 import org.company.model.Player;
-import org.company.util.NamedThreadFactory;
+import org.company.util.UncountableNamedThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +16,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -29,18 +30,18 @@ public class TransactionRequestExecutor implements Bean {
 
     private String walletServerUrl;
 
+    private long delayBetweenRequestsMillis;
+
     private TransactionRequestPublisher publisher;
-    private ExecutorService executorService;
+
+    private final List<ExecutorService> executors = new ArrayList<>();
 
     @Override
     public void init(ApplicationContext context) {
         final var configuration = context.getBean(ApplicationConfiguration.class);
         walletServerUrl = configuration.getWalletServerUrl();
+        delayBetweenRequestsMillis = configuration.getTransaction().getDelayBetweenRequestsMillis();
         publisher = context.getBean(TransactionRequestPublisher.class);
-        executorService = Executors.newFixedThreadPool(
-            configuration.getTransaction().getRequestPublisherCount(),
-            new NamedThreadFactory("transaction-request-executor")
-        );
     }
 
     public void start() {
@@ -55,11 +56,15 @@ public class TransactionRequestExecutor implements Bean {
     }
 
     public void executeTransactionRequestWorker(Player player) {
-        executorService.execute(() -> {
-            while (!executorService.isShutdown() || !executorService.isTerminated()) {
+        final var executor = Executors.newSingleThreadExecutor(new UncountableNamedThreadFactory(player.username()));
+        executors.add(executor);
+
+        log.info("Execute transaction request worker for player {}", player.username());
+        executor.execute(() -> {
+            while (!executor.isShutdown() || !executor.isTerminated()) {
                 try {
                     publisher.publish(TransactionRequestGenerator.request(player));
-                    Thread.sleep(300);
+                    Thread.sleep(delayBetweenRequestsMillis);
                 } catch (Exception e) {
                     log.error("Error while publishing transaction request", e);
                 }
@@ -68,10 +73,8 @@ public class TransactionRequestExecutor implements Bean {
     }
 
     public void stop() {
-        if (executorService != null) {
-            log.info("Stopping transaction request executor");
-            executorService.shutdown();
-        }
+        log.info("Stopping transaction request executor");
+        executors.forEach(ExecutorService::shutdown);
     }
 
     private List<Player> parseResponseBody(HttpResponse<String> response) {

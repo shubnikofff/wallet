@@ -4,17 +4,11 @@ import java.math.BigDecimal;
 
 public class TransactionConfiguration {
 
-    private int requestPublisherCount;
     private int responseConsumerCount;
+
     private BigDecimal generatedAmountMaximum;
 
-    public int getRequestPublisherCount() {
-        return requestPublisherCount;
-    }
-
-    public void setRequestPublisherCount(int requestPublisherCount) {
-        this.requestPublisherCount = requestPublisherCount;
-    }
+    private long delayBetweenRequestsMillis;
 
     public int getResponseConsumerCount() {
         return responseConsumerCount;
@@ -30,5 +24,13 @@ public class TransactionConfiguration {
 
     public void setGeneratedAmountMaximum(BigDecimal generatedAmountMaximum) {
         this.generatedAmountMaximum = generatedAmountMaximum;
+    }
+
+    public long getDelayBetweenRequestsMillis() {
+        return delayBetweenRequestsMillis;
+    }
+
+    public void setDelayBetweenRequestsMillis(long delayBetweenRequestsMillis) {
+        this.delayBetweenRequestsMillis = delayBetweenRequestsMillis;
     }
 }

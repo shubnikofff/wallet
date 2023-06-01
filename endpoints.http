@@ -6,5 +6,5 @@ POST localhost:8080/player
 Content-Type: application/json
 
 {
-  "username": "kane"
+  "username": "сatwoman"
 }

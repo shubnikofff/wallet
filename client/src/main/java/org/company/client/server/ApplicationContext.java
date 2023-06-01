@@ -1,6 +1,7 @@
 package org.company.client.server;
 
 import org.company.client.configuration.ApplicationConfiguration;
+import org.company.client.messaging.PlayerEventConsumer;
 import org.company.client.service.TransactionRequestExecutor;
 import org.company.client.messaging.TransactionRequestPublisher;
 import org.company.client.messaging.TransactionResponseConsumer;
@@ -18,6 +19,7 @@ public class ApplicationContext extends AbstractApplicationContext {
         context.register(new TransactionRequestPublisher());
         context.register(new TransactionRequestExecutor());
         context.register(new TransactionResponseConsumer());
+        context.register(new PlayerEventConsumer());
 
         return context;
     }
