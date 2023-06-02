@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class TransactionRequestExecutor implements Bean {
 
@@ -51,25 +52,26 @@ public class TransactionRequestExecutor implements Bean {
 
         httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString())
             .thenApply(this::parseResponseBody)
+            .exceptionally(exception -> {
+                log.error("Fail to fetch players from server", exception);
+                return Collections.emptyList();
+            })
             .join()
             .forEach(this::executeTransactionRequestWorker);
     }
 
     public void executeTransactionRequestWorker(Player player) {
-        final var executor = Executors.newSingleThreadExecutor(new UncountableNamedThreadFactory(player.username()));
+        final var executor = Executors.newSingleThreadScheduledExecutor(new UncountableNamedThreadFactory(player.username()));
         executors.add(executor);
 
         log.info("Execute transaction request worker for player {}", player.username());
-        executor.execute(() -> {
-            while (!executor.isShutdown() || !executor.isTerminated()) {
-                try {
-                    publisher.publish(TransactionRequestGenerator.request(player));
-                    Thread.sleep(delayBetweenRequestsMillis);
-                } catch (Exception e) {
-                    log.error("Error while publishing transaction request", e);
-                }
-            }
-        });
+
+        executor.scheduleAtFixedRate(() -> publisher.publish(
+            TransactionRequestGenerator.request(player)),
+            100L,
+            delayBetweenRequestsMillis,
+            TimeUnit.MILLISECONDS
+        );
     }
 
     public void stop() {
