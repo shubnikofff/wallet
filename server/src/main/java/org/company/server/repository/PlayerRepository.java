@@ -7,6 +7,7 @@ import org.company.context.Bean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public class PlayerRepository implements Bean {
              final var statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, player.username());
-            statement.setLong(2, player.balanceVersion());
+            statement.setBigDecimal(2, new BigDecimal(player.balanceVersion()));
             statement.setBigDecimal(3, player.balance());
 
             return statement.executeUpdate();
@@ -87,9 +88,9 @@ public class PlayerRepository implements Bean {
         try (final var connection = dataSource.getConnection();
              final var statement = connection.prepareStatement(sql)) {
 
-            statement.setLong(1, wallet.getBalanceVersion());
-            statement.setBigDecimal(2, wallet.getBalance());
-            statement.setString(3, wallet.getUsername());
+            statement.setBigDecimal(1, new BigDecimal(wallet.version()));
+            statement.setBigDecimal(2, wallet.balance());
+            statement.setString(3, wallet.username());
 
             return statement.executeUpdate();
         } catch (SQLException e) {
@@ -101,7 +102,7 @@ public class PlayerRepository implements Bean {
     private static Player player(ResultSet resultSet) throws SQLException {
         return new Player(
             resultSet.getString("username"),
-            resultSet.getLong("balance_version"),
+            resultSet.getBigDecimal("balance_version").toBigInteger(),
             resultSet.getBigDecimal("balance")
         );
     }

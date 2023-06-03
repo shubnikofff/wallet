@@ -43,12 +43,11 @@ public class TransactionProcessor implements Bean {
     public void process(TransactionRequest transactionRequest) {
         log.info("Process {}", transactionRequest);
 
-        final var wallet = walletManager.getWallet(transactionRequest.username());
         final var transaction = new Transaction(
             transactionRequest.id(),
             transactionRequest.direction(),
             transactionRequest.amount(),
-            wallet
+            transactionRequest.username()
         );
 
         final var errorCode = check(transaction);
@@ -58,11 +57,11 @@ public class TransactionProcessor implements Bean {
             transactionRepository.add(transaction);
         }
 
-        messagePublisher.publish(transactionResponse(transaction, errorCode));
+        publishTransactionResponse(transaction, errorCode);
     }
 
     private ErrorCode check(Transaction transaction) {
-        if (playerBlacklist.contains(transaction.wallet().getUsername())) {
+        if (playerBlacklist.contains(transaction.username())) {
             return ErrorCode.OPERATION_DENIED;
         }
 
@@ -70,7 +69,8 @@ public class TransactionProcessor implements Bean {
             return ErrorCode.AMOUNT_OUT_OF_LIMIT;
         }
 
-        if(transaction.direction() == OUT && transaction.wallet().getBalance().subtract(transaction.amount()).compareTo(BigDecimal.ZERO) < 0) {
+        final var currentBalance = walletManager.getWallet(transaction.username()).balance();
+        if(transaction.direction() == OUT && currentBalance.subtract(transaction.amount()).compareTo(BigDecimal.ZERO) < 0) {
             return ErrorCode.INSUFFICIENT_FUNDS;
         }
 
@@ -81,14 +81,18 @@ public class TransactionProcessor implements Bean {
         return null;
     }
 
-    private static TransactionResponse transactionResponse(Transaction transaction, ErrorCode errorCode) {
-        return new TransactionResponse(
+    private void publishTransactionResponse(Transaction transaction, ErrorCode errorCode) {
+        final var wallet = walletManager.getWallet(transaction.username());
+        final var response = new TransactionResponse(
             transaction.id(),
+            transaction.username(),
             errorCode,
-            transaction.wallet().getBalanceVersion(),
             transaction.direction(),
             transaction.amount(),
-            transaction.wallet().getBalance()
+            wallet.version(),
+            wallet.balance()
         );
+
+        messagePublisher.publish(response);
     }
 }

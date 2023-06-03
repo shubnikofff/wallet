@@ -1,7 +1,7 @@
 create table if not exists public.player
 (
     username        varchar(255)               not null,
-    balance_version int            default 1   not null,
+    balance_version numeric(20, 0) default 1   not null,
     balance         numeric(10, 2) default 0.0 not null,
     constraint pk_player primary key (username)
 );

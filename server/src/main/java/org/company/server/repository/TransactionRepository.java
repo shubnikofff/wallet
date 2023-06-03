@@ -26,7 +26,7 @@ public class TransactionRepository implements Bean {
              final var statement = connection.prepareStatement(sql)) {
 
             statement.setObject(1, transaction.id());
-            statement.setString(2, transaction.wallet().getUsername());
+            statement.setString(2, transaction.username());
             statement.setString(3, transaction.direction().name());
             statement.setBigDecimal(4, transaction.amount());
 

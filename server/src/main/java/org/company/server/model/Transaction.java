@@ -9,6 +9,6 @@ public record Transaction (
     UUID id,
     TransactionDirection direction,
     BigDecimal amount,
-    Wallet wallet
+    String username
 )
 {}

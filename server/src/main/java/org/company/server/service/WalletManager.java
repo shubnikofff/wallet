@@ -7,6 +7,7 @@ import org.company.model.TransactionDirection;
 import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -22,10 +23,11 @@ public class WalletManager implements Bean {
         playerService = context.getBean(PlayerService.class);
     }
 
-    public Wallet getWallet(String address) {
-        return wallets.computeIfAbsent(address, username -> playerService.get(username)
-            .map(player -> new Wallet(address, player.balanceVersion(), player.balance()))
-            .orElseThrow(() -> new IllegalArgumentException("Player with username " + address + " not found")));
+    public Wallet getWallet(String username) {
+        return wallets.computeIfAbsent(username, name -> playerService.get(name)
+            .map(player -> new Wallet(username, player.balanceVersion(), player.balance()))
+            .orElseThrow(() -> new IllegalArgumentException("Player with username " + username + " not found"))
+        );
     }
 
     public Collection<Wallet> getAllWallets() {
@@ -33,12 +35,15 @@ public class WalletManager implements Bean {
     }
 
     public synchronized void applyTransaction(Transaction transaction) {
-        final var wallet = transaction.wallet();
+        final var wallet = getWallet(transaction.username());
         final var newBalance = transaction.direction() == TransactionDirection.IN
-            ? wallet.getBalance().add(transaction.amount())
-            : wallet.getBalance().subtract(transaction.amount());
+            ? wallet.balance().add(transaction.amount())
+            : wallet.balance().subtract(transaction.amount());
 
-        wallet.setBalance(newBalance);
-        wallet.setBalanceVersion(wallet.getBalanceVersion() + 1);
+        wallets.put(transaction.username(), new Wallet(
+            transaction.username(),
+            wallet.version().add(BigInteger.ONE),
+            newBalance
+        ));
     }
 }

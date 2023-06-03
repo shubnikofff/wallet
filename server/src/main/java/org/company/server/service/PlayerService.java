@@ -9,6 +9,7 @@ import org.company.context.ApplicationContext;
 import org.company.context.Bean;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class PlayerService implements Bean {
     }
 
     public Player create(CreatePlayerRequest request) {
-        final var player = new Player(request.username(), 1L, BigDecimal.ZERO);
+        final var player = new Player(request.username(), BigInteger.ONE, BigDecimal.ZERO);
         final var newRecordsCount = playerRepository.add(player);
 
         if(newRecordsCount == 1) {
