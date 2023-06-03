@@ -9,5 +9,5 @@ kafka:
 
 transaction:
   responseConsumerCount: 3
-  generatedAmountMaximum: 1100.0
-  delayBetweenRequestsMillis: 300
+  generatedAmountMaximum: 1200.0
+  delayBetweenRequestsMillis: 100
