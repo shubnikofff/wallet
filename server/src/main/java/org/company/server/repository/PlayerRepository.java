@@ -9,7 +9,10 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 public class PlayerRepository implements Bean {
 
@@ -23,7 +26,7 @@ public class PlayerRepository implements Bean {
     }
 
     public List<Player> findAll() {
-        final var sql = "select id, username, balance_version, balance from player";
+        final var sql = "select username, balance_version, balance from player";
 
         try (final var connection = dataSource.getConnection();
              final var statement = connection.prepareStatement(sql)) {
@@ -43,7 +46,7 @@ public class PlayerRepository implements Bean {
     }
 
     public Optional<Player> findByUsername(String username) {
-        final var sql = "select id, username, balance_version, balance from player where username = ?";
+        final var sql = "select username, balance_version, balance from player where username = ?";
 
         try (final var connection = dataSource.getConnection();
              final var statement = connection.prepareStatement(sql)) {
@@ -62,15 +65,14 @@ public class PlayerRepository implements Bean {
     }
 
     public int add(Player player) {
-        final var sql = "insert into player values(?, ?, ?, ?)";
+        final var sql = "insert into player values(?, ?, ?)";
 
         try (final var connection = dataSource.getConnection();
              final var statement = connection.prepareStatement(sql)) {
 
-            statement.setObject(1, player.id());
-            statement.setString(2, player.username());
-            statement.setLong(3, player.balanceVersion());
-            statement.setBigDecimal(4, player.balance());
+            statement.setString(1, player.username());
+            statement.setLong(2, player.balanceVersion());
+            statement.setBigDecimal(3, player.balance());
 
             return statement.executeUpdate();
         } catch (SQLException e) {
@@ -98,7 +100,6 @@ public class PlayerRepository implements Bean {
 
     private static Player player(ResultSet resultSet) throws SQLException {
         return new Player(
-            (UUID) resultSet.getObject("id"),
             resultSet.getString("username"),
             resultSet.getLong("balance_version"),
             resultSet.getBigDecimal("balance")

@@ -11,7 +11,6 @@ import org.company.context.Bean;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public class PlayerService implements Bean {
 
@@ -34,7 +33,7 @@ public class PlayerService implements Bean {
     }
 
     public Player create(CreatePlayerRequest request) {
-        final var player = new Player(UUID.randomUUID(), request.username(), 1L, BigDecimal.ZERO);
+        final var player = new Player(request.username(), 1L, BigDecimal.ZERO);
         final var newRecordsCount = playerRepository.add(player);
 
         if(newRecordsCount == 1) {

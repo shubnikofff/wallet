@@ -1,17 +1,16 @@
 create table if not exists public.player
 (
-    id              uuid                       not null,
-    username        varchar(255) unique        not null,
+    username        varchar(255)               not null,
     balance_version int            default 1   not null,
     balance         numeric(10, 2) default 0.0 not null,
-    constraint pk_player primary key (id)
+    constraint pk_player primary key (username)
 );
 
 insert into player
-values (gen_random_uuid(), 'batman'),
-       (gen_random_uuid(), 'robin'),
-       (gen_random_uuid(), 'joker'),
-       (gen_random_uuid(), 'penguin');
+values ('batman'),
+       ('robin'),
+       ('joker'),
+       ('penguin');
 
 create table if not exists public.transaction
 (
