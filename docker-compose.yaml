@@ -27,8 +27,23 @@ services:
       - zookeeper
     environment:
       KAFKA_LISTENERS: 'INTERNAL://kafka:9090,EXTERNAL://:9092'
-      KAFKA_ADVERTISED_LISTENERS: 'INTERNAL://kafka:9090,EXTERNAL://localhost:9092'
+      KAFKA_ADVERTISED_LISTENERS: 'INTERNAL://kafka:9090,EXTERNAL://kafka:9092'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT'
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_CREATE_TOPICS: 'transaction.request.v1:3:1,transaction.response.v1:3:1,player.event.v1:1:1'
+
+  server:
+    build:
+      dockerfile: server/Dockerfile
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+      - kafka
+
+  client:
+    build:
+      dockerfile: client/Dockerfile
+    depends_on:
+      - server

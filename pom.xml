@@ -6,7 +6,7 @@
 
     <groupId>org.company</groupId>
     <artifactId>wallet</artifactId>
-    <version>${application.version}</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -26,6 +26,7 @@
         <jackson.version>2.15.1</jackson.version>
         <kafka.version>3.3.2</kafka.version>
         <logback.version>1.4.7</logback.version>
+        <assembly-plugin.version>3.6.0</assembly-plugin.version>
     </properties>
 
     <dependencies>

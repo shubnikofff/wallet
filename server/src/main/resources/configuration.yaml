@@ -9,12 +9,12 @@ workerCount: 3
 port: 8080
 
 db:
-  url: jdbc:postgresql://localhost:5432/wallet
+  url: jdbc:postgresql://postgres:5432/wallet
   username: wallet_app
   password: secret
 
 kafka:
-  bootstrapServers: localhost:9092
+  bootstrapServers: kafka:9092
   transactionRequestTopic: transaction.request.v1
   transactionResponseTopic: transaction.response.v1
   playerEventTopic: player.event.v1
