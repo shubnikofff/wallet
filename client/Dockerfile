@@ -12,4 +12,4 @@ WORKDIR /app
 
 COPY --from=build /app/client/target/app-jar-with-dependencies.jar .
 
-CMD ["java", "-jar", "app-jar-with-dependencies.jar"]
+CMD ["java", "-jar", "app-jar-with-dependencies.jar", "docker"]

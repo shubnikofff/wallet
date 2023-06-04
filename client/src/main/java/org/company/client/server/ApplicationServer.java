@@ -1,5 +1,6 @@
 package org.company.client.server;
 
+import org.company.application.Environment;
 import org.company.client.configuration.ApplicationConfiguration;
 import org.company.client.messaging.PlayerEventConsumer;
 import org.company.client.service.TransactionRequestExecutor;
@@ -20,11 +21,12 @@ public class ApplicationServer {
         this.context = context;
     }
 
-    public static ApplicationServer getInstance() {
+    public static ApplicationServer instance(Environment environment) {
         if (instance == null) {
             log.info("Initializing server");
             try {
-                final var configuration = ApplicationConfiguration.read("/configuration.yaml");
+                final var configurationPath = environment == Environment.DOCKER ? "/configuration.yaml" : "/configuration.local.yaml";
+                final var configuration = ApplicationConfiguration.read(configurationPath);
                 final var context = ApplicationContext.init(configuration);
                 instance = new ApplicationServer(context);
             } catch (Exception e) {

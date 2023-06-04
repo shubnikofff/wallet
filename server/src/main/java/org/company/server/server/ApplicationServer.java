@@ -1,5 +1,6 @@
 package org.company.server.server;
 
+import org.company.application.Environment;
 import org.company.server.configuration.ApplicationConfiguration;
 import org.company.server.repository.DataSource;
 import org.company.server.service.BalanceDumpJob;
@@ -28,11 +29,12 @@ public class ApplicationServer {
         log.info("Server started");
     }
 
-    public static ApplicationServer instance() {
+    public static ApplicationServer instance(Environment environment) {
         if (instance == null) {
             log.info("Initializing server");
             try {
-                final var configuration = ApplicationConfiguration.read("/configuration.yaml");
+                final var configurationPath = environment == Environment.DOCKER ? "/configuration.yaml" : "/configuration.local.yaml";
+                final var configuration = ApplicationConfiguration.read(configurationPath);
                 final var context = ApplicationContext.init(configuration);
                 instance = new ApplicationServer(context);
             } catch (Exception e) {
