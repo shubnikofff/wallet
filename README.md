@@ -74,21 +74,19 @@ Client fetches all existing players from server by http request on startup. Then
 
 User can send http request to Server to create new player. When Server receives such request it creates new record in table `Player` and publishes `Player created event` to `player.event.v1` kafka topic. Here is example of new player request
 ```
-POST localhost:8080/player
-
-Content-Type: application/json
-{
-  "username": "сatwoman"
-}
-
+ curl -X POST -H "Content-Type: application/json" -d '{"username":"kane"}' localhost:8080/player
 ```
 Client consumes events from `player.event.v1` topic and creates worker to start generating transaction request in separate thread.
+
+There is a background process which dump balance values from all wallets to database each 5 seconds.
 
 # How to run
 
 ### In Docker
 
 ```docker-compose up```
+
+If you don't see ongoing logs from both client and server then remove and rebuild all containers using ```docker-compose down -v```. Applications can be launched differently on different machines depends on Docker setup and hardware resources.
 
 ### Locally
 
